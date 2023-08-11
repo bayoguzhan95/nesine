@@ -9,13 +9,13 @@ const BasketCart = () => {
       <h4 className="font-bold mb-2">Kupon Detayı:</h4>
       <ul>
         {selectedOdds.map((item, index) => (
-          <li key={index}>
-            {item.match}: {item.oddsValue}
+          <li className="border-b p-2" key={index}>
+            {item.match}: <strong>{item.oddsValue}</strong>
           </li>
         ))}
       </ul>
       <hr className="my-2" />
-      <p>Toplam Oran: {getTotalOdds()}</p>
+      <p className="font-bold">Toplam Oran: {getTotalOdds()}</p>
     </div>
   );
 };
