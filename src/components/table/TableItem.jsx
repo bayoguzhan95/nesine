@@ -28,7 +28,7 @@ export const TableItem = ({ data }) => {
       <TableItemHeaders firstItem={`${data.D}, ${data.DAY}, ${data.LN}`} />
       <tr>
         <td className={`border`}>
-          <strong>${data.C}</strong> {`, ${data.T}, ${data.N}`}
+          <strong>{data.C}</strong> {`, ${data.T}, ${data.N}`}
         </td>
         <td className={`border`}>Yorumlar</td>
         <td className={`border`}>{data.OCG['1'].MBS}</td>
