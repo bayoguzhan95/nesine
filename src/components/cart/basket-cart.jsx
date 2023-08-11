@@ -23,7 +23,7 @@ const BasketCart = () => {
       {isExpanded && (
         <ul>
           {selectedOdds.map((item, index) => (
-            <li className="border-b p-2" key={index}>
+            <li className="border-t p-2" key={index}>
               {item.match}: <strong>{item.oddsValue}</strong>
             </li>
           ))}
