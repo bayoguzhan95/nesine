@@ -10,6 +10,36 @@ const URL = 'https://nesine-case-study.onrender.com/bets';
 function App() {
   const { isLoading, isError, data } = useFetchData(URL);
 
+  const [displayedData, setDisplayedData] = React.useState([]);
+  const [dataEnd, setDataEnd] = React.useState(false);
+
+  const loadMoreData = React.useCallback(() => {
+    if (!data || data.length === 0) return;
+
+    const nextData = data.slice(displayedData.length, displayedData.length + 100);
+
+    if (nextData.length === 0) {
+      setDataEnd(true);
+    } else {
+      setDisplayedData((prevData) => [...prevData, ...nextData]);
+    }
+  }, [displayedData, data]);
+
+  const handleScroll = React.useCallback(() => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !dataEnd) {
+      loadMoreData();
+    }
+  }, [dataEnd, loadMoreData]);
+
+  React.useEffect(() => {
+    if (data?.length > 0 && displayedData.length === 0) {
+      setDisplayedData(data.slice(0, 100));
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [data, handleScroll]);
+
   if (isLoading) {
     return <Loading />;
   }
@@ -23,8 +53,8 @@ function App() {
       <table className="min-w-full bg-white">
         <TableHeaders dataLength={data?.length} />
         <tbody>
-          {data?.map((match) => (
-            <TableItem key={match?.NID} data={match} />
+          {displayedData?.map((match, index) => (
+            <TableItem key={index} data={match} />
           ))}
         </tbody>
       </table>
