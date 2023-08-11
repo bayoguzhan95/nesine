@@ -15,9 +15,11 @@ const BasketCart = () => {
     <div className="fixed bottom-4 right-4 p-4 bg-white border rounded shadow-lg">
       <div className="flex justify-between items-center">
         <h4 className="font-bold mb-2">Kupon Detayı:</h4>
-        <button onClick={toggleExpand} className="text-sm">
-          {isExpanded ? <MinusIcon /> : <PlusIcon /> }
-        </button>
+        {selectedOdds?.length > 0 && (
+          <button onClick={toggleExpand} className="text-sm">
+            {isExpanded ? <MinusIcon /> : <PlusIcon />}
+          </button>
+        )}
       </div>
 
       {isExpanded && (

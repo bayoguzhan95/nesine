@@ -3,7 +3,7 @@ import { Headers } from '../../enums';
 const TableHeaders = ({ dataLength }) => (
   <thead>
     <tr>
-      <th className="border p-3 bg-zinc-200">{`Count ${dataLength}`}</th>
+      <th className="border p-3 bg-zinc-200">{`Event Count ${dataLength}`}</th>
       {Headers.map((title, index) => (
         <th key={index} className={`border p-3 bg-zinc-200 ${title?.isHiddenMobile ? 'hidden md:table-cell' : ''}`}>
           {title?.title}
