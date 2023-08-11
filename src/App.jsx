@@ -16,7 +16,7 @@ function App() {
   const loadMoreData = React.useCallback(() => {
     if (!data || data.length === 0) return;
 
-    const nextData = data.slice(displayedData.length, displayedData.length + 100);
+    const nextData = data.slice(displayedData.length, displayedData.length + 50);
 
     if (nextData.length === 0) {
       setDataEnd(true);
@@ -33,7 +33,7 @@ function App() {
 
   React.useEffect(() => {
     if (data?.length > 0 && displayedData.length === 0) {
-      setDisplayedData(data.slice(0, 100));
+      setDisplayedData(data.slice(0, 50));
     }
 
     window.addEventListener('scroll', handleScroll);
