@@ -27,7 +27,7 @@ export const TableItem = ({ data }) => {
     <React.Fragment>
       <TableItemHeaders firstItem={`${data.D}, ${data.DAY}, ${data.LN}`} />
 
-      <tr className="text-sm">
+      <tr className="text-xs md:text-sm">
         <td className={`border min-w-[120px]  w-1/5 p-2  `}>
           <strong>{data.C}</strong> {`, ${data.T}, ${data.N}`}
         </td>
