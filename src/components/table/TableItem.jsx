@@ -1,14 +1,15 @@
 import React from 'react';
 import { useCoupon } from '../../context/CouponContext';
 import TableItemHeaders from './TableItemHeader';
+import { TdItem } from './TdItem';
 
 export const TableItem = ({ data }) => {
   const { addToCoupon, selectedOdds } = useCoupon();
 
-  const isSelected = (matchCode, oddsValue) => {
-    const found = selectedOdds.find((item) => item.code === matchCode && item.oddsValue === oddsValue);
-    return found ? 'bg-yellow-500' : '';
-  };
+  const isSelected = React.useCallback(
+    (matchCode, oddsValue) => !!selectedOdds.find((item) => item.code === matchCode && item.oddsValue === oddsValue),
+    [selectedOdds]
+  );
 
   const handleAddToCoupon = React.useCallback(
     (matchData, value) => {
@@ -17,15 +18,9 @@ export const TableItem = ({ data }) => {
     [addToCoupon]
   );
 
-  const TdItem = ({ data, code, ocgKey, ocKey, clickHandler }) => {
-    const value = data?.OCG[ocgKey]?.OC[ocKey]?.O;
-    const className = `border ${clickHandler && isSelected(code, value)}`;
-
-    return (
-      <td className={className} onClick={() => clickHandler && clickHandler(data, value)}>
-        {value}
-      </td>
-    );
+  const clickHandler = {
+    isSelected,
+    handleClick: handleAddToCoupon,
   };
 
   return (
@@ -37,19 +32,19 @@ export const TableItem = ({ data }) => {
         </td>
         <td className={`border`}>Yorumlar</td>
         <td className={`border`}>{data.OCG['1'].MBS}</td>
-        <TdItem data={data} code={data.C} ocgKey="1" ocKey="0" clickHandler={handleAddToCoupon} />
-        <TdItem data={data} code={data.C} ocgKey="1" ocKey="1" clickHandler={handleAddToCoupon} />
+        <TdItem data={data} code={data.C} ocgKey="1" ocKey="0" clickHandler={clickHandler} />
+        <TdItem data={data} code={data.C} ocgKey="1" ocKey="1" clickHandler={clickHandler} />
         <td className={`border`}></td>
-        <TdItem data={data} code={data.C} ocgKey="5" ocKey="25" clickHandler={handleAddToCoupon} />
-        <TdItem data={data} code={data.C} ocgKey="5" ocKey="26" clickHandler={handleAddToCoupon} />
-        <td className={`border`}></td>
-        <td className={`border`}></td>
+        <TdItem data={data} code={data.C} ocgKey="5" ocKey="25" clickHandler={clickHandler} />
+        <TdItem data={data} code={data.C} ocgKey="5" ocKey="26" clickHandler={clickHandler} />
         <td className={`border`}></td>
         <td className={`border`}></td>
         <td className={`border`}></td>
-        <TdItem data={data} code={data.C} ocgKey="2" ocKey="3" clickHandler={handleAddToCoupon} />
-        <TdItem data={data} code={data.C} ocgKey="2" ocKey="4" clickHandler={handleAddToCoupon} />
-        <TdItem data={data} code={data.C} ocgKey="2" ocKey="5" clickHandler={handleAddToCoupon} />
+        <td className={`border`}></td>
+        <td className={`border`}></td>
+        <TdItem data={data} code={data.C} ocgKey="2" ocKey="3" clickHandler={clickHandler} />
+        <TdItem data={data} code={data.C} ocgKey="2" ocKey="4" clickHandler={clickHandler} />
+        <TdItem data={data} code={data.C} ocgKey="2" ocKey="5" clickHandler={clickHandler} />
         <td className={`border`}></td>
         <td className={`border`}></td>
         <td className={`border`}>3</td>
