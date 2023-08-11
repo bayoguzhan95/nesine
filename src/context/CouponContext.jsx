@@ -16,7 +16,16 @@ export const CouponProvider = ({ children }) => {
       match: `${matchInfo.D} - ${matchInfo.N}`,
       oddsValue: odds,
     };
+
     setSelectedOdds((prev) => {
+      // Aynı seçeneğe tıklanıp tıklanmadığını kontrol ediyoruz.
+      const isSameOptionSelected = prev.some((item) => item.code === matchInfo.C && item.oddsValue === odds);
+
+      // Eğer aynı seçenek seçiliyse, bu seçeneği kaldır.
+      if (isSameOptionSelected) {
+        return prev.filter((item) => !(item.code === matchInfo.C && item.oddsValue === odds));
+      }
+
       // Önceki seçimi kaldırma
       const filteredOdds = prev.filter((item) => item.code !== matchInfo.C);
       return [...filteredOdds, newItem];
